@@ -1,0 +1,28 @@
+# Dockerfile.ui
+# Minimal image for the Streamlit UI service.
+# Intentionally kept separate from the main Dockerfile to keep
+# the backend image lean (no Streamlit dependency there).
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install UI dependencies only
+COPY ui/requirements.txt ./ui/requirements.txt
+RUN pip install --no-cache-dir -r ui/requirements.txt
+
+# Copy UI source
+COPY ui/ ./ui/
+COPY streamlit_app.py ./streamlit_app.py
+COPY .streamlit/ ./.streamlit/
+
+# Non-root user for security
+RUN useradd --create-home appuser
+USER appuser
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "streamlit_app.py", \
+     "--server.port=8501", \
+     "--server.address=0.0.0.0", \
+     "--server.headless=true"]
