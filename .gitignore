@@ -1,5 +1,90 @@
-.idea
-.venv
-fastapi-langgraph-agent.iml
+# ── Environment & Secrets ────────────────────────────────────────────────────
 .env
-data/*.db*
+.env.*
+!.env.example
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+wheels/
+
+# ── Testing & Coverage ───────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.log
+
+# ── Linting & Formatting ─────────────────────────────────────────────────────
+.ruff_cache/
+.mypy_cache/
+
+# ── Data & Database ──────────────────────────────────────────────────────────
+# LangGraph SQLite checkpoints (auto-generated at runtime)
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# ── Docker ───────────────────────────────────────────────────────────────────
+# Docker volumes are managed externally, never commit them
+
+# ── IDEs & Editors ───────────────────────────────────────────────────────────
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Vim/Emacs
+*.swp
+*.swo
+*~
+\#*\#
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Jupyter Notebooks ────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Streamlit ────────────────────────────────────────────────────────────────
+.streamlit/secrets.toml
+
+# ── Node (if any frontend tooling is added later) ───────────────────────────
+node_modules/
+npm-debug.log*
