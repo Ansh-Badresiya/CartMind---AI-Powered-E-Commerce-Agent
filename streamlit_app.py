@@ -13,6 +13,7 @@ Override with the AGENT_API_URL environment variable.
 from __future__ import annotations
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from ui.api_client import AgentAPIClient, APIError
 from ui.components.chat import render_chat_area
@@ -45,6 +46,50 @@ st.set_page_config(
 # ---------------------------------------------------------------------------
 inject_styles()
 init_session()
+
+# ---------------------------------------------------------------------------
+# Sidebar auto-expand fix (JavaScript-based)
+# ---------------------------------------------------------------------------
+# Streamlit persists the sidebar open/closed state in the browser's
+# localStorage, which overrides initial_sidebar_state="expanded" on refresh.
+# The only reliable fix is JavaScript: detect if the sidebar is collapsed and
+# programmatically click the expand button.
+#
+# window.parent.__cartmindSidebarReady persists across Streamlit reruns
+# (which don't reload the page) but is reset on actual browser refresh.
+# This means we auto-expand exactly once per page load — not on every rerun.
+components.html(
+    """
+    <script>
+    (function () {
+        function expandSidebar() {
+            // stSidebarCollapsedControl only exists in the DOM when sidebar
+            // is collapsed, so clicking it is always safe (no double-toggle).
+            var btn = window.parent.document.querySelector(
+                '[data-testid="stSidebarCollapsedControl"]'
+            );
+            if (btn) {
+                btn.click();
+                return true;
+            }
+            return false;
+        }
+
+        if (!window.parent.__cartmindSidebarReady) {
+            window.parent.__cartmindSidebarReady = true;
+            // Try at 300ms (fast machines) and 900ms (slow / first load).
+            setTimeout(function () {
+                if (!expandSidebar()) {
+                    setTimeout(expandSidebar, 600);
+                }
+            }, 300);
+        }
+    })();
+    </script>
+    """,
+    height=0,
+    scrolling=False,
+)
 
 # Singleton API client (cached for the lifetime of the browser session)
 @st.cache_resource

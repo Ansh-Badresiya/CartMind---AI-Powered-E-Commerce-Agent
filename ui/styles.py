@@ -33,23 +33,42 @@ footer { visibility: hidden; }
     border-bottom: none !important;
 }
 
-/* Make the sidebar expand button (>) visible and styled on dark background */
+/* Make the sidebar expand button (>) always visible, clearly styled, and easy to click */
 [data-testid="stSidebarCollapsedControl"] {
-    background: rgba(22, 27, 46, 0.95) !important;
-    border: 1px solid rgba(124, 58, 237, 0.35) !important;
-    border-radius: 0 8px 8px 0 !important;
-    backdrop-filter: blur(10px);
-    box-shadow: 2px 0 12px rgba(124, 58, 237, 0.2) !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 0 !important;
+    transform: translateY(-50%) !important;
+    z-index: 999999 !important;
+    background: rgba(22, 27, 46, 0.97) !important;
+    border: 1px solid rgba(124, 58, 237, 0.5) !important;
+    border-left: none !important;
+    border-radius: 0 10px 10px 0 !important;
+    backdrop-filter: blur(12px);
+    box-shadow: 4px 0 20px rgba(124, 58, 237, 0.35) !important;
+    width: 28px !important;
+    min-height: 64px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 [data-testid="stSidebarCollapsedControl"]:hover {
-    background: rgba(124, 58, 237, 0.2) !important;
-    border-color: rgba(124, 58, 237, 0.6) !important;
+    background: rgba(124, 58, 237, 0.3) !important;
+    border-color: rgba(124, 58, 237, 0.8) !important;
+    box-shadow: 4px 0 24px rgba(124, 58, 237, 0.5) !important;
+    width: 34px !important;
 }
 
 [data-testid="stSidebarCollapsedControl"] svg {
     color: #a78bfa !important;
     fill: #a78bfa !important;
+    width: 16px !important;
+    height: 16px !important;
 }
 
 /* ─── Page background ───────────────────────────────────────────────────── */
